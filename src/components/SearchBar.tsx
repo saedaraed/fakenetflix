@@ -1,37 +1,29 @@
-"use client"
+"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [query, setQuery] = useState(searchParams.get("query") || "");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleSearch = () => {
-    if (searchTerm) {
-      // Implement search functionality
-      console.log("Searching for:", searchTerm);
+  useEffect(() => {
+    if (query) {
+      router.push(`/search?query=${query}`, { scroll: false });
+    } else {
+      router.push(`/`, { scroll: false });
     }
-  };
+  }, [query, router]);
 
   return (
-    <div className="flex items-center gap-3">
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={handleChange}
-        className="px-3 py-2 rounded-md bg-gray-800 text-white focus:outline-none"
-      />
-      <button
-        onClick={handleSearch}
-        className="px-4 py-2 rounded-md bg-white text-black hover:bg-gray-300"
-      >
-        Search
-      </button>
-    </div>
+    <input
+      type="text"
+      placeholder="Search..."
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      className=" p-2 border rounded-md"
+    />
   );
 };
 
