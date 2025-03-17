@@ -3,7 +3,12 @@ import { getMovieDetails } from "../../../lib/tmdpApi";
 import { Play } from "lucide-react";
 import { Movie } from "../../../types/types";
 
-const MovieDetailsPage = async ({ params }: { params: { id: string } }) => {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+const MovieDetailsPage = async ({ params }:PageProps) => {
   const movieId = parseInt(params.id, 10);
   const movie = await getMovieDetails(movieId);
 
