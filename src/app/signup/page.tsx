@@ -31,14 +31,16 @@ const SignUPPage = () => {
     try {
       const user =  await registerWithEmail(data.email, data.password);
       if (user) {
-        router.push("/"); // Redirect to home after successful registration and login
+        router.push("/");
       }
       router.push("/");
-    } catch (error:any) {
-      alert(`Registration failed: ${error.message || "Please try again."}`);
-
-      // console.error("Registration failed", error);
-    } finally {
+    }  catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(`Registration failed: ${error.message || "Please try again."}`);
+      } else {
+        alert("An unknown error occurred. Please try again.");
+      }
+    }finally {
       setLoading(false);
     }
   };

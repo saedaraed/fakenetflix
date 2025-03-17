@@ -1,13 +1,7 @@
-// src/app/movies/[id]/page.tsx
-
 import Image from "next/image";
 import { getMovieDetails } from "../../../lib/tmdpApi";
-import { Info, Play, CirclePlus } from "lucide-react";
-import { Movie } from "../../../types/types";  
-
-interface MovieDetailsPageProps {
-  movie: Movie;
-}
+import { Play } from "lucide-react";
+import { Movie } from "../../../types/types";
 
 const MovieDetailsPage = async ({ params }: { params: { id: string } }) => {
   const movieId = parseInt(params.id, 10);
@@ -67,9 +61,12 @@ const MovieDetailsPage = async ({ params }: { params: { id: string } }) => {
             <p className="text-white mt-4"> {movie.vote_average}</p>
           </div>
           <div className="relative mt-4 w-[50%] mx-auto flex justify-center">
-            <img
+            <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
+              width={500}
+              height={750}
+              layout="responsive"
               className="w-full max-w-sm"
               style={{
                 WebkitMaskImage:
@@ -85,9 +82,7 @@ const MovieDetailsPage = async ({ params }: { params: { id: string } }) => {
                   <Play size={20} />
                 </button>
               </div>
-              <p className=" text-white text-lg ">
-                Watch Now
-              </p>
+              <p className=" text-white text-lg ">Watch Now</p>
             </div>
           </div>
         </div>

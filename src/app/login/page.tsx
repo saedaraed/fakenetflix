@@ -21,7 +21,7 @@ const LoginPage = () => {
         router.replace("/");
       }, 1000);
     } catch (err) {
-      console.error("failed login:", error);
+      console.error("failed login:", err);
 
       setError("email or password invalid");
     } finally {

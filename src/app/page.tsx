@@ -10,7 +10,6 @@ import Link from "next/link";
 import HomeSkeleton from "../components/HomeSkelton";
 
 const Home = () => {
-  const [authToken, setAuthToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
   const [trendingTvShows, setTrendingTvShows] = useState<TVShow[]>([]);

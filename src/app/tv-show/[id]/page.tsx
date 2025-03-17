@@ -68,6 +68,8 @@ const TVDetailsPage = async ({ params }: { params: { id: string } }) => {
     <img
       src={`https://image.tmdb.org/t/p/w500${tvShow.poster_path}`}
       alt={tvShow.name}
+      width={500} 
+      height={750} 
       className="w-full max-w-sm"
       style={{
         WebkitMaskImage:
