@@ -1,9 +1,10 @@
+// src/components/Navbar.tsx
 "use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 import Cookies from "js-cookie";
-import { logout } from "@/lib/auth";
+import { LogOut, Menu as MenuIcon, User, X } from "lucide-react";
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -11,11 +12,10 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { LogOut, Menu as MenuIcon, X } from "lucide-react";
 import SearchBar from "./SearchBar";
 
 const Navbar = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, logout: logoutUser, login } = useAuth(); 
   const [menuOpen, setMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -23,43 +23,39 @@ const Navbar = () => {
 
   useEffect(() => {
     const token = Cookies.get("authToken");
-    setIsAuthenticated(!!token);
-  }, []);
+    if (token) {
+      login(); 
+    }
+  }, [login]);
 
   const handleLogout = async () => {
-    const success = await logout();
-    if (success) {
-      setIsAuthenticated(false);
-      router.replace("/login");
-    }
+    Cookies.remove("authToken");
+    logoutUser();
+    router.replace("/login");
   };
 
   return (
     <nav className="bg-gradient-to-r from-black to-gray-900 text-white p-4 flex items-center justify-between h-[70px] shadow-md">
-    
       <div className="flex items-center space-x-4">
-     
         <h1 className="text-2xl font-bold tracking-wide">Fake Netflix</h1>
-
-    
       </div>
-      {isAuthenticated &&(
-    <div className="hidden lg:flex space-x-6">
-    <Link href="/" className="hover:text-red-500 transition">Home</Link>
-    <Link href="/movies" className="hover:text-red-500 transition">Movies</Link>
-    <Link href="/tv-show" className="hover:text-red-500 transition">TV Shows</Link>
-    <Link href="/my-list" className="block text-white hover:text-red-500 transition">My List</Link>
 
-  </div>
-      )
-    }
+      {isAuthenticated && (
+        <div className="hidden lg:flex space-x-6">
+          <Link href="/" className="hover:text-red-500 transition">Home</Link>
+          <Link href="/movies" className="hover:text-red-500 transition">Movies</Link>
+          <Link href="/tv-show" className="hover:text-red-500 transition">TV Shows</Link>
+          <Link href="/my-list" className="block text-white hover:text-red-500 transition">My List</Link>
+        </div>
+      )}
+
       <div className="flex items-center space-x-4">
         {isAuthenticated && (
           <>
-          <SearchBar />
+            <SearchBar />
             <Tooltip title="Account settings">
               <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} size="small">
-                <Avatar sx={{ width: 40, height: 40, boxShadow: "0 0 8px rgba(255,255,255,0.3)" }}>M</Avatar>
+                <Avatar sx={{ width: 40, height: 40, boxShadow: "0 0 8px rgba(255,255,255,0.3)" }}><User /></Avatar>
               </IconButton>
             </Tooltip>
             <Menu

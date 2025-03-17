@@ -4,6 +4,7 @@ import SwiperCards from "@/components/SwiperCards";
 import { getPopularMovies, getUpcomingMovies } from "../../lib/tmdpApi";
 import { useEffect, useState } from "react";
 import {Movie} from '../../types/types'
+import SkeltonCards from "@/components/SkeltonCard";
 
 
 const MoviesPage = () => {
@@ -30,7 +31,7 @@ const MoviesPage = () => {
   }, []);
 
   if (loading) {
-    return <p className="text-white text-center">Loading...</p>;
+    return <SkeltonCards/>;
   }
 
   return (

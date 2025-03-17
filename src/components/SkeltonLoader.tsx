@@ -1,12 +1,9 @@
-import styles from "../styles/MovieCard.module.css";
+import React from "react";
 
+const Skeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={`animate-pulse bg-gray-700 rounded-md ${className}`} />
+  );
+};
 
-const SkeltonCad =()=>{
-return(
-    <div className={styles.card}>
-       
-        </div>   
-)
-}
-
-export default SkeltonCad;
+export default Skeleton;

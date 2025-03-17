@@ -8,7 +8,7 @@ import Head from "next/head";
 import Footer from "@/components/Footer";
 import { usePathname } from "next/navigation";
 import { WatchlistProvider } from '../context/WatchListContext'; 
-
+import { AuthProvider } from '../context/AuthContext'; 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -42,7 +42,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
         <Head>
           <title>Fake Netflix</title>
           <meta name="description" content="Fake Netflix site for movies" />
@@ -51,12 +51,13 @@ export default function RootLayout({
         {showSplash ? (
           <SplashScreen />
         ) : (
-          <>
-            <WatchlistProvider>   <Navbar /> 
-            {children}  
-            {!hideFooter && <Footer />}</WatchlistProvider>
-         
-          </>
+          <AuthProvider>
+            <WatchlistProvider>   
+              <Navbar />
+              <main className="flex-grow">{children}</main>  
+              {!hideFooter && <Footer />}
+            </WatchlistProvider>
+          </AuthProvider>
         )}
       </body>
     </html>

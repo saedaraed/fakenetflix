@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Play, Info } from "lucide-react";
 import SwiperCards from "@/components/SwiperCards";
 import Link from "next/link";
+import HomeSkeleton from "../components/HomeSkelton";
 
 const Home = () => {
   const [authToken, setAuthToken] = useState<string | null>(null);
@@ -40,7 +41,7 @@ const Home = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <HomeSkeleton/>;
   }
 
 

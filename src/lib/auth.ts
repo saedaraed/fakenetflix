@@ -23,7 +23,17 @@ export const signInWithEmail = async (email: string, password: string) => {
 export const registerWithEmail = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
+    const user = userCredential.user;
+    
+    if (user) {
+      const token = await user.getIdToken();
+      Cookies.set("authToken", token, { expires: 7, path: "/", secure: true, sameSite: "Strict" });
+      console.log("Token stored after registration:", Cookies.get("authToken"));
+    } else {
+      console.log("No accessToken found after registration");
+    }
+    return user;
+
   } catch (error) {
     console.error("Error registering with email:", error);
     throw new Error("Failed to sign in. Please check your credentials.");

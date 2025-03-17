@@ -16,7 +16,7 @@ const MyList = () => {
       {watchlist.length === 0 ? (
         <p className="text-gray-400">Your watchlist is empty.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 mt-4">
           {watchlist.map((item, index) => (
             <MovieCard key={index} movie={item as Movie | TVShow} type={item.isMovie ? "movies" : "tv-show"} />
           ))}

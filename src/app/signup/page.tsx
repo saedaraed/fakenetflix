@@ -2,25 +2,48 @@
 import { useState } from "react";
 import { registerWithEmail } from "@/lib/auth";
 import { useRouter } from "next/navigation"; 
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import Image from "next/image";
+import { FormData } from "@/types/types";
 const SignUPPage = () => {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter(); 
-  const handleRegistration = async () => {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Passwords must match")
+      .required("Confirm password is required"),
+  });
+   const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(validationSchema),
+  });
+  const onSubmit = async (data: FormData) => {
     setLoading(true);
-    await registerWithEmail(email, password);
-    setLoading(false);
-    router.push("/");
+    try {
+      const user =  await registerWithEmail(data.email, data.password);
+      if (user) {
+        router.push("/"); // Redirect to home after successful registration and login
+      }
+      router.push("/");
+    } catch (error:any) {
+      alert(`Registration failed: ${error.message || "Please try again."}`);
+
+      // console.error("Registration failed", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
+ 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center">
    <Image
@@ -36,37 +59,39 @@ const SignUPPage = () => {
       <div className="relative z-10 w-full max-w-md p-8 rounded-lg shadow-lg bg-black/20 backdrop-blur-md">
       <div className="w-full max-w-md p-8 rounded-lg shadow-lg bg-white/20">
       <h2 className="text-2xl font-bold  text-white">Sign Up</h2>
-        <form className="space-y-6 mt-8">
+        <form className="space-y-6 mt-8" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email")}
               placeholder="Email"
               className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
+                          {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+
           </div>
           <div>
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password")}
               placeholder="Password"
               className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
+                          {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+
           </div>
           <div>
             <input
               type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              {...register("confirmPassword")}
               placeholder="Confirm Password"
               className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
           </div>
+          {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
+
           <button
-            type="button"
-            onClick={handleRegistration}
+            type="submit"
             className="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700 focus:outline-none"
             disabled={loading}
           >

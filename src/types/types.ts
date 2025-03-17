@@ -1,3 +1,8 @@
+export type FormData = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 interface Genre {
   id: number;
   name: string;

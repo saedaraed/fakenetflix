@@ -4,6 +4,7 @@ import SwiperCards from "@/components/SwiperCards";
 import { getPopularTVShows, getCurrentlyAiringTVShows } from "../../lib/tmdpApi";
 import { useEffect, useState } from "react";
 import {TVShow} from '../../types/types'
+import SkeltonCards from "@/components/SkeltonCard";
 
 const TVShowsPage  = () => {
   const [popularTVShows, setPopularTVShows] = useState<TVShow[]>([]);
@@ -29,13 +30,13 @@ const TVShowsPage  = () => {
   }, []);
 
   if (loading) {
-    return <p className="text-white text-center">Loading...</p>;
+    return <SkeltonCards/>;
   }
 
   return (
     <div className="container mx-auto py-6">
       <SwiperCards movies={popularTVShows} title="Popular TV Shows" type="tv-show" loading={loading}/>
-      <SwiperCards movies={currentlyAiringTVShows} title="Upcoming Movies" type="tv-show" loading={loading} />
+      <SwiperCards movies={currentlyAiringTVShows} title="Currently Airing TV Shows" type="tv-show" loading={loading} />
     </div>
   );
 };
