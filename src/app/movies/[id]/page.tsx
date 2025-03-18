@@ -9,7 +9,7 @@ interface PageProps {
 
 
 const MovieDetailsPage = async ({ params }:PageProps) => {
-  const movieId = parseInt(params.id, 10);
+  const movieId = parseInt(params?.id, 10);
   const movie = await getMovieDetails(movieId);
 
   if (!movie) {
