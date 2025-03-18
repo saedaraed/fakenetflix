@@ -4,12 +4,13 @@ import { Play } from "lucide-react";
 import { Movie } from "../../../types/types";
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
+
 const MovieDetailsPage = async ({ params }:PageProps) => {
-  const movieId = parseInt(params.id, 10);
+  const resolvedParams = await params;
+
+  const movieId = parseInt(resolvedParams.id, 10);
   const movie = await getMovieDetails(movieId);
 
   if (!movie) {
