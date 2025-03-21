@@ -1,41 +1,41 @@
 import axios from "axios";
-
+import {TVShow , Movie} from '../types/types'
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
-interface Genre {
-  id: number;
-  name: string;
-}
-interface Companies {
-  id: number;
-  logo_path: string;
-  name: string;
-}
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  overview: string;
-  vote_average: number;
-  release_date: string;
-  genres: Genre[];
-  production_companies: Companies[];
-}
-interface Created {
-  id: number;
-  profile_path: string;
-  name: string;
-}
-interface TVShow {
-  id: number;
-  name: string;
-  poster_path: string;
-  overview: string;
-  vote_average: number;
-  first_air_date: string;
-  created_by: Created[]
-  genres:Genre[]
-}
+// interface Genre {
+//   id: number;
+//   name: string;
+// }
+// interface Companies {
+//   id: number;
+//   logo_path: string;
+//   name: string;
+// }
+// interface Movie {
+//   id: number;
+//   title: string;
+//   poster_path: string;
+//   overview: string;
+//   vote_average: number;
+//   release_date: string;
+//   genres: Genre[];
+//   production_companies: Companies[];
+// }
+// interface Created {
+//   id: number;
+//   profile_path: string;
+//   name: string;
+// }
+// interface TVShow {
+//   id: number;
+//   name: string;
+//   poster_path: string;
+//   overview: string;
+//   vote_average: number;
+//   first_air_date: string;
+//   created_by: Created[]
+//   genres:Genre[]
+// }
 
 interface ApiResponse<T> {
   results: T[];
