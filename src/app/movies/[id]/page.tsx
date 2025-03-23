@@ -4,24 +4,22 @@ import { Play } from "lucide-react";
 import { Movie } from "../../../types/types";
 import axios from "axios";
 
-interface PageProps {
-  params: { id: string };
-}
+// interface PageProps {
+//   params: { id: string };
+// }
 
 
-const MovieDetailsPage = async ({ params }:PageProps) => {
-  if (!params || typeof params.id !== "string") {
-    return <p className="text-white">Invalid movie ID</p>;
-  }
+const MovieDetailsPage = async (props: { params: Promise<{ id: string }> }) => {
+  const { id } = await props.params; // ✅ Await the params
+  const movieId = parseInt(id, 10);
 
-  const movieId = Number(params.id);
   if (isNaN(movieId)) {
-    return <p className="text-white">Invalid movie ID</p>;
+    return <p className="text-white text-center">Invalid movie ID</p>;
   }
 
   const movie = await getMovieDetails(movieId);
   if (!movie) {
-    return <p className="text-white">Movie not found</p>;
+    return <p className="text-white text-center">Movie not found</p>;
   }
 
   return (
@@ -121,8 +119,8 @@ export async function generateStaticParams() {
       }
   
       const paths = data.results.map((movie: Movie) => ({
-        id: movie.id.toString(), 
-      }));
+        params: { id: movie.id.toString() }, 
+    }));
   
       return paths;
     } catch (error) {
