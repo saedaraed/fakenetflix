@@ -2,6 +2,7 @@ import axios from "axios";
 import {TVShow , Movie} from '../types/types'
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
+console.log("API Key:", API_KEY);
 
 interface ApiResponse<T> {
   results: T[];
@@ -10,6 +11,7 @@ export const fetchData = async <T>(endpoint: string): Promise<T | null> => {
   try {
     const response = await axios.get<T>(`${BASE_URL}${endpoint}`, {
       params: { api_key: API_KEY },
+      timeout: 5000, 
     });
     return response.data;
   } catch (error) {
