@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "../styles/MovieCard.module.css";
 import { useWatchlist } from "../context/WatchListContext";
 import { CircleMinus, CirclePlay, CirclePlus, Eye } from "lucide-react";
+import Image from "next/image";
 
 interface MovieCardProps {
   movie: Movie | TVShow;
@@ -32,10 +33,13 @@ const MovieCard = ({ movie, type }: MovieCardProps) => {
 
   return (
     <div className={styles.card}>
-      <img
+      <Image
         src={posterPath}
         alt={title}
+        width={500} 
+        height={100}
         style={{ width: "100%", borderRadius: "8px" }}
+        priority
       />
       <div className={styles.overlay}>
      

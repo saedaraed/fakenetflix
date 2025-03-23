@@ -31,7 +31,7 @@ const TVDetailsPage = async ({ params }: { params: { id: string } }) => {
       <p className="text-white">{tvShow.first_air_date}</p>
       <p className="text-white">|</p>
       <div className="flex gap-3">
-        {tvShow.genres.map((item) => (
+        {tvShow?.genres?.map((item) => (
           <p key={item.id} className="text-white">{item.name}</p>
         ))}
       </div>
@@ -47,7 +47,7 @@ const TVDetailsPage = async ({ params }: { params: { id: string } }) => {
     <div className="flex gap-5 items-center mt-5">
       <h2 className="text-[20px] w-[200px] text-white">Created by</h2>
       <div className="flex gap-5 items-center">
-        {tvShow.created_by.map((item) => (
+        {tvShow?.created_by?.map((item) => (
           <div key={item.id}>
             <Image
               src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
@@ -65,11 +65,12 @@ const TVDetailsPage = async ({ params }: { params: { id: string } }) => {
   </div>
 
   <div className="relative mt-4 w-full md:w-[50%] mx-auto flex justify-center">
-    <img
+    <Image
       src={`https://image.tmdb.org/t/p/w500${tvShow.poster_path}`}
       alt={tvShow.name}
-      width={500} 
-      height={750} 
+      width={500}
+      height={750}
+      layout="responsive"
       className="w-full max-w-sm"
       style={{
         WebkitMaskImage:
