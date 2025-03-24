@@ -18,5 +18,5 @@ export const config = {
     '/my-list', 
     '/movies/[id]', 
     '/tv-show/[id]',
-    'search',
+    '/search',
   ], };
