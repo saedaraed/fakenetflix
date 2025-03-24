@@ -11,5 +11,12 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/movies' , '/tv-show'], 
-};
+  matcher: [
+    '/', 
+    '/movies', 
+    '/tv-show', 
+    '/my-list', 
+    '/movies/[id]', 
+    '/tv-show/[id]',
+    'search',
+  ], };

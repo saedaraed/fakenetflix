@@ -39,7 +39,7 @@ const SearchPage = () => {
   }, [debouncedQuery]);
 
   return (
-    <div className="container mx-auto">
+    <div className="max-w-screen-xl mx-auto">
       <h1 className="text-2xl font-bold">Search Results for  &quot;{debouncedQuery}&quot;</h1>
 
       {movies.length > 0 && (
