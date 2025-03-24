@@ -27,9 +27,10 @@ const SwiperCards: React.FC<SwiperProps> = ({ movies, title, type , loading }) =
         navigation={true}
         loop={false}
         breakpoints={{
-          640: { slidesPerView: 2 }, 
-          768: { slidesPerView: 3 }, 
-          1024: { slidesPerView: 6 }, 
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 5 }, 
+          1280: { slidesPerView: 6 }, 
         }}
         modules={[Navigation]}
         className="mt-4"

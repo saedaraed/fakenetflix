@@ -78,7 +78,7 @@ const Home = () => {
   )}
 </div>
 
-      <div className="max-w-screen-xl mx-auto   py-6 px-4 ">
+      <div className="max-w-screen-xl mx-auto  py-6 px-4 ">
         <SwiperCards movies={trendingMovies} title="Trending Movies" type="movies" loading={loading} />
         <SwiperCards movies={trendingTvShows} title="Trending Tv" type="tv-show" loading={loading}/>
         <SwiperCards movies={topRated} title="Top Rated Movies" type="movies" loading={loading}/>
