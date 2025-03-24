@@ -1,4 +1,3 @@
-// src/components/Navbar.tsx
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -41,16 +40,17 @@ const Navbar = () => {
       </div>
 
       {isAuthenticated && (
+        <>
         <div className="hidden lg:flex space-x-6">
           <Link href="/" className="hover:text-red-500 transition">Home</Link>
           <Link href="/movies" className="hover:text-red-500 transition">Movies</Link>
           <Link href="/tv-show" className="hover:text-red-500 transition">TV Shows</Link>
           <Link href="/my-list" className="block text-white hover:text-red-500 transition">My List</Link>
         </div>
-      )}
+  
 
       <div className="flex items-center space-x-4">
-        {isAuthenticated && (
+   
           <>
             <SearchBar />
             <Tooltip title="Account settings">
@@ -90,7 +90,7 @@ const Navbar = () => {
               </MenuItem>
             </Menu>
           </>
-        )}
+      
 
         <button className="lg:hidden" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
@@ -98,22 +98,24 @@ const Navbar = () => {
       </div>
 
       {menuOpen && (
-        <div className="lg:hidden absolute top-[70px] left-0 w-full bg-gray-800 p-5 space-y-4 shadow-lg">
-          <Link href="/" className="block text-white hover:text-red-500 transition">Home</Link>
-          <Link href="/movies" className="block text-white hover:text-red-500 transition">Movies</Link>
-          <Link href="/tv-show" className="block text-white hover:text-red-500 transition">TV Shows</Link>
-          <Link href="/my-list" className="block text-white hover:text-red-500 transition">My List</Link>
+        <div className="lg:hidden absolute z-100 top-[70px] left-0 w-full h-full bg-gray-800 p-5 space-y-4 shadow-lg ">
+          <Link href="/" className="block text-white hover:text-red-500 transition" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link href="/movies" className="block text-white hover:text-red-500 transition" onClick={() => setMenuOpen(false)}>Movies</Link>
+          <Link href="/tv-show" className="block text-white hover:text-red-500 transition" onClick={() => setMenuOpen(false)}>TV Shows</Link>
+          <Link href="/my-list" className="block text-white hover:text-red-500 transition" onClick={() => setMenuOpen(false)}>My List</Link>
 
-          {isAuthenticated && (
+  
             <button
               onClick={handleLogout}
-              className="bg-red-500 text-white w-full py-2 rounded-md hover:bg-red-600 transition"
+              className="bg-red-500 text-white w-auto px-10 py-2 rounded-md hover:bg-red-600 transition"
             >
               Logout
             </button>
-          )}
+     
         </div>
       )}
+      </>
+          )}
     </nav>
   );
 };
