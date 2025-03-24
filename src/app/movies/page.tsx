@@ -35,7 +35,7 @@ const MoviesPage = () => {
   }
 
   return (
-    <div className="container mx-auto py-6">
+    <div className="max-w-screen-xl mx-auto py-6">
       <SwiperCards movies={popularMovies} title="Popular Movies" type="movies" loading={loading} />
       <SwiperCards movies={upcomingMovies} title="Upcoming Movies" type="movies" loading={loading} />
     </div>
