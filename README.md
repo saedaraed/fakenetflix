@@ -44,6 +44,7 @@ Check out the live demo: [FakeNetflix Demo](https://fakenetflix-ten.vercel.app)
 - **Swiper.js** - Creates smooth carousels for featured content.
 - **Context API** - Manages global state efficiently.
 - **React Hook Form & Yup** - Simplifies form handling and validation.
+- **Axios** - Used to fetch data from APIs like TMDb and Firebase.
 - **Vercel** - Used for production deployment.
 
 ## 🔧 Installation & Setup
