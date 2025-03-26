@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Fakenetflix
+FakeNetflix is a Netflix-inspired movie streaming platform built using **Next.js** and **TypeScript**. It provides users with an immersive experience to browse and explore movies and TV shows with seamless authentication and a personalized watchlist.
 
-## Getting Started
+## 🎬 Demo
 
-First, run the development server:
+Check out the live demo: [FakeNetflix Demo](https://fakenetflix-ten.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Test credentials (for lazy users 😓)**
+- **Email:** testt@gmail.com  
+- **Password:** 123456
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Features
+- **Modern UI**: Styled with **Tailwind CSS** for a responsive and sleek design.
+- **Authentication**: Sign in with **Email & Google** using **Firebase Authentication**.
+- **Dynamic Data Fetching**: Integrated with the **TMDb API** for real-time movie and TV show data.
+- **State Management**: Utilizes **Context API** for managing global state.
+- **Custom Hooks**: Optimized logic handling with reusable hooks.
+- **Middleware Protection**: Restricts access to specific pages if the user is not authenticated.
+- **Watchlist Management**:
+  - Uses **LocalStorage** to save user watchlists.
+  - Stores authentication tokens in **cookies** for session persistence.
+- **Smooth Carousels**: Implemented using **Swiper.js** for interactive sliders.
+- **Form Handling & Validation**: Uses **React Hook Form** and **Yup** for efficient and reliable form validation.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📌 Pages
 
-## Learn More
+- **Home Page** - Displays featured movies and trending content.
+- **Movies Page** - Browse and explore movies.
+- **TV Shows Page** - Discover popular TV shows.
+- **Movie & TV Show Details Pages** - Get detailed information about a specific movie or show.
+- **Search Page** - Search for movies and TV shows.
+- **Watchlist Page** - View and manage your saved watchlist.
+- **Login Page** - Sign in to access personalized content.
+- **Sign Up Page** - Create a new account.
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Next.js** - React framework for server-side rendering and static site generation.
+- **TypeScript** - Ensures type safety and better code maintainability.
+- **Tailwind CSS** - Provides a fast and customizable styling approach.
+- **Firebase Authentication** - Handles user authentication securely.
+- **TMDb API** - Fetches movie and TV show data dynamically.
+- **Swiper.js** - Creates smooth carousels for featured content.
+- **Context API** - Manages global state efficiently.
+- **React Hook Form & Yup** - Simplifies form handling and validation.
+- **Vercel** - Used for production deployment.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Installation & Setup
 
-## Deploy on Vercel
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/saedaraed/fakenetflix.git
+   cd fakenetflix
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Create a `.env.local` file and add your Firebase and TMDb API keys:
+   ```env
+   NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+   NEXT_PUBLIC_TMDB_API_KEY=your_tmdb_api_key
+   ```
+
+4. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+
+
+
+## 🚀 Deployment
+
+This project is deployed on **Vercel** for a seamless production experience. You can access the live version using the link above.
+
+
