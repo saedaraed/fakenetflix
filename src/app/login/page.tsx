@@ -1,40 +1,32 @@
 "use client";
-import { useState } from "react";
-import { signInWithEmail, signInWithGoogle } from "@/lib/auth";
-import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginFormData } from "@/types/types";
 import Link from "next/link";
 import Image from "next/image";
+import { useAuth } from "../../hooks/useAuth";
+
 const LoginPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-  const handleEmailLogin = async () => {
-    setLoading(true);
-    setError(null);
+  const { loginWithEmail, loginWithGoogle, loading, error } = useAuth();
 
-    try {
-      const user = await signInWithEmail(email, password);
-      console.log("success login", user);
-      setTimeout(() => {
-        router.replace("/");
-      }, 1000);
-    } catch (err) {
-      console.error("failed login:", err);
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+  });
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: yupResolver(validationSchema),
+  });
 
-      setError("email or password invalid");
-    } finally {
-      setLoading(false);
-    }
+  const onSubmit = async (data: LoginFormData) => {
+    await loginWithEmail(data.email, data.password);
   };
 
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    await signInWithGoogle();
-    setLoading(false);
-    router.push("/");
-  };
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center">
@@ -58,39 +50,39 @@ const LoginPage = () => {
             </div>
           )}
 
-          <form className="space-y-6 mt-8 ">
+          <form className="space-y-6 mt-8 "  onSubmit={handleSubmit(onSubmit)}>
             <div>
               <input
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
                 placeholder="Email"
                 className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
-              />
+                aria-label="Email"
+             />
             </div>
             <div>
               <input
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+              {...register("password")}
                 placeholder="Password"
                 className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
-              />
+                aria-label="Password"
+
+             />
             </div>
             <button
-              type="button"
-              onClick={handleEmailLogin}
-              className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-700 focus:outline-none"
-              disabled={loading}
-            >
-              {loading ? "Logging in..." : "Login with Email"}
-            </button>
+            type="submit"
+            className="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
           </form>
 
           <div className="mt-6 text-center">
             <span className="text-sm text-white">OR</span>
             <button
-              onClick={handleGoogleLogin}
+              onClick={loginWithGoogle}
               className="w-full mt-4 border border-white text-white py-3 rounded-md hover:bg-blue-600 focus:outline-none"
             >
               {loading ? "Logging in..." : "Login with Google"}
