@@ -34,7 +34,7 @@ const TVShowsPage  = () => {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto py-6">
+    <div className="max-w-screen-xl mx-auto py-6 px-4">
       <SwiperCards movies={popularTVShows} title="Popular TV Shows" type="tv-show" loading={loading}/>
       <SwiperCards movies={currentlyAiringTVShows} title="Currently Airing TV Shows" type="tv-show" loading={loading} />
     </div>

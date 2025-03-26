@@ -9,7 +9,7 @@ const MyList = () => {
   const { watchlist } = useWatchlist();
 
   return (
-    <div className="max-w-screen-xl mx-auto py-6">
+    <div className="max-w-screen-xl mx-auto py-6 px-4">
       <h2 className="text-white text-xl font-bold">My Watchlist</h2>
       <div>
      

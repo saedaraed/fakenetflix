@@ -31,7 +31,6 @@ const Home = () => {
       setTrendingTvShows(tvShowsData?.results || []);
       setTopRated(topRatedMovieData?.results||[])
       setTopRatedTv(topRatedTvData?.results||[])
-      console.log("topRatedTvData" , topRatedTvData)
     } catch (error) {
       console.error(error);
     } finally {

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { searchMovies, searchTVShows } from "../../lib/tmdpApi";
 import MovieCard from "@/components/MovieCard";
 import {Movie , TVShow} from '../../types/types'
+import Head from "next/head";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
@@ -39,7 +40,16 @@ const SearchPage = () => {
   }, [debouncedQuery]);
 
   return (
-    <div className="max-w-screen-xl mx-auto">
+    <>
+    <Head>
+          <meta name="fakenetflix" content="fakenetflix" />
+          <meta property="og:title" content="My Movie App" />
+          <meta property="og:description" content="Default description for my app" />
+          <meta property="og:image" content="https://example.com/og-image.jpg" />
+          <meta name="robots" content="index,follow" />
+        </Head>
+  
+    <div className="max-w-screen-xl mx-auto px-4">
       <h1 className="text-2xl font-bold">Search Results for  &quot;{debouncedQuery}&quot;</h1>
 
       {movies.length > 0 && (
@@ -68,6 +78,7 @@ const SearchPage = () => {
         <p className="mt-4 text-gray-500">No results found.</p>
       )}
     </div>
+    </>
   );
 };
 
