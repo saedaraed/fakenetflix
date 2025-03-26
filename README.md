@@ -25,9 +25,9 @@ Check out the live demo: [FakeNetflix Demo](https://fakenetflix-ten.vercel.app)
 
 ## 📌 Pages
 
-- **Home Page** - Displays featured movies and trending content.
-- **Movies Page** - Browse and explore movies.
-- **TV Shows Page** - Discover popular TV shows.
+- **Home Page** - Displays featured content such as trending movies and TV shows.
+- **Movies Page** - Displays popular movies and upcoming movies.
+- **TV Shows Page** -  Displays popular TV shows and currently airing TV shows.
 - **Movie & TV Show Details Pages** - Get detailed information about a specific movie or show.
 - **Search Page** - Search for movies and TV shows.
 - **Watchlist Page** - View and manage your saved watchlist.
