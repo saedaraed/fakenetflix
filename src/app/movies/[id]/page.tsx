@@ -108,7 +108,7 @@ const MovieDetailsPage =async({ params }: { params: { id: string } })=>{
         </div>
       </div>
       <div className="container mx-auto mt-5">
-        <h2 className="text-white text-xl font-bold">Recommendations</h2>
+        {/* <h2 className="text-white text-xl font-bold">Recommendations</h2> */}
       </div>
     </>
   );

@@ -46,6 +46,8 @@ export default function RootLayout({
         <Head>
           <title>Fake Netflix</title>
           <meta name="description" content="Fake Netflix site for movies" />
+          <link rel="icon" href="/f.svg" type="image/svg+xml" />
+          
         </Head>
 
         {showSplash ? (
