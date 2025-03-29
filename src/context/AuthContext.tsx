@@ -1,4 +1,3 @@
-// src/app/context/AuthContext.tsx
 "use client";
 import { createContext, useState, useContext, ReactNode, useEffect } from "react";
 import Cookies from "js-cookie";
@@ -23,7 +22,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = () => {
     setIsAuthenticated(true);
-    Cookies.set("authToken", "your_token_here"); // أو أي قيمة تريدها
+    Cookies.set("authToken", "your_token_here");
   };
 
   const logout = () => {

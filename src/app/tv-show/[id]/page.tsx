@@ -1,16 +1,31 @@
 import Image from "next/image";
 import { getTVShowDetails } from "../../../lib/tmdpApi";
-import { Play } from "lucide-react";
-import { TVShow } from "../../../types/types";
+import { Play, Star } from "lucide-react";
 
 const TVDetailsPage = async ({ params }: { params: { id: string } }) => {
   const showId = parseInt(params.id, 10);
   const tvShow = await getTVShowDetails(showId);
 
   if (!tvShow) {
-    return <p className="text-white text-center">المسلسل غير متوفر</p>;
+    return <p className="text-white text-center"> not available </p>;
   }
+  const renderStars = (voteAverage: number) => {
+    const fullStars = Math.floor(voteAverage / 2); 
+    const halfStars = voteAverage % 2 >= 1 ? 1 : 0; 
+    const emptyStars = 5 - fullStars - halfStars;
 
+    const stars = [];
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<Star key={`full-${i}`} className="text-white" />);
+    }
+    if (halfStars > 0) {
+      stars.push(<Star key="half" className="text-white/50" />);
+    }
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<Star key={`empty-${i}`} className="text-white/10" />);
+    }
+    return stars;
+  };
   return (
     <>
       <div
@@ -26,6 +41,10 @@ const TVDetailsPage = async ({ params }: { params: { id: string } }) => {
         <div className="container mx-auto flex flex-col-reverse md:flex-row justify-between gap-5 bg-white/10 backdrop-blur-lg rounded-lg p-6">
   <div className="w-full md:w-[50%]">
     <h1 className="text-[40px] font-bold text-white">{tvShow.name}</h1>
+    <div className="flex gap-1 mt-4">
+                {tvShow.vote_average !== undefined && renderStars(tvShow.vote_average)} 
+              </div>   
+              <hr className="mt-4 mb-4 opacity-50"/>
 
     <div className="flex items-center gap-4">
       <p className="text-white">{tvShow.first_air_date}</p>
@@ -38,30 +57,27 @@ const TVDetailsPage = async ({ params }: { params: { id: string } }) => {
     </div>
 
     <div className="flex gap-5 items-center mt-5">
-      <h2 className="text-[20px] w-[200px] text-white">Overview</h2>
       <p className="opacity-70 mt-4 text-md leading-relaxed font-light text-white">
         {tvShow.overview}
       </p>
     </div>
 
     <div className="flex gap-5 items-center mt-5">
-      <h2 className="text-[20px] w-[200px] text-white">Created by</h2>
       <div className="flex gap-5 items-center">
         {tvShow?.created_by?.map((item) => (
-          <div key={item.id}>
+          <div key={item.id} className="w-[60px] h-[60px] overflow-hidden rounded-full">
             <Image
               src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
               alt={item.name}
-              width={100}
-              height={50}
-              className="object-contain"
+              width={60}
+              height={60}
+              className="object-cover" 
             />
           </div>
         ))}
       </div>
     </div>
 
-    <p className="text-white mt-4">Vote {tvShow.vote_average}</p>
   </div>
 
   <div className="relative mt-4 w-full md:w-[50%] mx-auto flex justify-center">
@@ -100,31 +116,5 @@ const TVDetailsPage = async ({ params }: { params: { id: string } }) => {
   );
 };
 
-export async function generateStaticParams() {
-  try {
-    const response = await fetch(
-      "https://api.themoviedb.org/3/tv/popular?api_key=YOUR_API_KEY"
-    );
-    if (!response.ok) throw new Error("فشل في جلب بيانات المسلسلات");
-
-    const data = await response.json();
-
-    if (!data.results) {
-      console.error("لا توجد نتائج في استجابة API");
-      return [];
-    }
-
-    const paths = data.results.map((show: TVShow) => ({
-      id: show.id.toString(),
-    }));
-
-    return paths;
-  } catch (error) {
-    console.error("حدث خطأ أثناء جلب بيانات المسلسلات:", error);
-    return [];
-  }
-}
-
-export const revalidate = 60;
 
 export default TVDetailsPage;

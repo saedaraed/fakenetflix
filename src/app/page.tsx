@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import {getPopularMovies, getTopRatedMovies, getTopRatedTVShows, getTrendingTVShows } from "@/lib/tmdpApi";
 import { Movie, TVShow } from "../types/types";  

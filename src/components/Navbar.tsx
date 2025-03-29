@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <nav className="text-white p-4 flex items-center justify-between h-[70px] shadow-md">
       <div className="flex items-center space-x-4">
-        <h1 className="text-2xl font-bold tracking-wide">Fake Netflix</h1>
+        <h1 className="md:text-2xl text-md font-bold tracking-wide">Fake Netflix</h1>
       </div>
 
       {isAuthenticated && (

@@ -47,13 +47,7 @@ interface Genre {
     created_by?: Created[];
   }
   
-  // export interface WatchlistItem {
-  //   movieId: number;
-  //   title?: string;
-  //   name?: string;  
-  //   poster_path: string;
-  //   isMovie: boolean; 
-  // }
+
   export interface WatchlistItem extends Partial<Movie>, Partial<TVShow> {
     movieId: number;
     isMovie: boolean;

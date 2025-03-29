@@ -13,7 +13,7 @@ interface SwiperProps {
   movies: (Movie | TVShow)[];
   title: string;
   type: "movies" | "tv-show"; 
-  loading:boolean;
+  loading?:boolean;
 }
 
 const SwiperCards: React.FC<SwiperProps> = ({ movies, title, type , loading }) => {

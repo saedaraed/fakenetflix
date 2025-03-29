@@ -22,7 +22,7 @@ const SearchBar = () => {
       placeholder="Search..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      className=" p-2 border rounded-md"
+      className=" w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-2 border rounded-md text-sm sm:text-base focus:outline-none transition-all "
     />
   );
 };
